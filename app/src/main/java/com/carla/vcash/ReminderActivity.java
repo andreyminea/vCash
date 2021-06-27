@@ -1,4 +1,4 @@
-package com.etti.vcash;
+package com.carla.vcash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.etti.managers.SharedPrefsSingleton;
+import com.carla.managers.SharedPrefsSingleton;
 import com.google.android.material.button.MaterialButton;
 
 public class ReminderActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.etti.models;
+package com.carla.models;
 
 import java.util.Random;
 

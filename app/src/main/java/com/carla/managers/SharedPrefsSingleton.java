@@ -1,11 +1,11 @@
-package com.etti.managers;
+package com.carla.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.etti.models.Card;
-import com.etti.models.User;
-import com.etti.vcash.R;
+import com.carla.models.Card;
+import com.carla.models.User;
+import com.carla.vcash.R;
 
 public class SharedPrefsSingleton
 {

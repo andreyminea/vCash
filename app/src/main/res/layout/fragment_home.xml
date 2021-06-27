@@ -126,7 +126,7 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-        <com.etti.customViews.CreditCardView
+        <com.carla.customViews.CreditCardView
             android:id="@+id/virtualCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

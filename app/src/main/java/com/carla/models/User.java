@@ -1,9 +1,4 @@
-package com.etti.models;
-
-import android.graphics.Bitmap;
-import android.net.Uri;
-
-import java.util.Map;
+package com.carla.models;
 
 public class User
 {

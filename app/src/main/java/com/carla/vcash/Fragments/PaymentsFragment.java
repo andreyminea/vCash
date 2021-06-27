@@ -1,4 +1,4 @@
-package com.etti.vcash.Fragments;
+package com.carla.vcash.Fragments;
 
 import android.os.Bundle;
 
@@ -8,23 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.etti.vcash.R;
+import com.carla.vcash.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TransferFragment#newInstance} factory method to
+ * Use the {@link PaymentsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TransferFragment extends Fragment {
+public class PaymentsFragment extends Fragment {
 
-
-    public TransferFragment() {
+    public PaymentsFragment() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static TransferFragment newInstance(String param1, String param2) {
-        TransferFragment fragment = new TransferFragment();
+    public static PaymentsFragment newInstance() {
+        PaymentsFragment fragment = new PaymentsFragment();
         return fragment;
     }
 
@@ -37,6 +36,7 @@ public class TransferFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transfer, container, false);
+        View view = inflater.inflate(R.layout.fragment_payments, container, false);
+        return view;
     }
 }

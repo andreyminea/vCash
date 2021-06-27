@@ -1,10 +1,9 @@
-package com.etti.vcash.Fragments;
+package com.carla.vcash.Fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,12 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.etti.customViews.CreditCardView;
-import com.etti.managers.FirebaseSingleton;
-import com.etti.managers.SharedPrefsSingleton;
-import com.etti.models.Card;
-import com.etti.models.User;
-import com.etti.vcash.R;
+import com.carla.customViews.CreditCardView;
+import com.carla.managers.FirebaseSingleton;
+import com.carla.managers.SharedPrefsSingleton;
+import com.carla.models.Card;
+import com.carla.models.User;
+import com.carla.vcash.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;

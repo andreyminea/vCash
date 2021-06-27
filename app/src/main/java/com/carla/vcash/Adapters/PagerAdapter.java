@@ -1,13 +1,13 @@
-package com.etti.vcash.Adapters;
+package com.carla.vcash.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.etti.vcash.Fragments.HomeFragment;
-import com.etti.vcash.Fragments.PaymentsFragment;
-import com.etti.vcash.Fragments.TransferFragment;
+import com.carla.vcash.Fragments.HomeFragment;
+import com.carla.vcash.Fragments.PaymentsFragment;
+import com.carla.vcash.Fragments.TransferFragment;
 
 import org.jetbrains.annotations.NotNull;
 

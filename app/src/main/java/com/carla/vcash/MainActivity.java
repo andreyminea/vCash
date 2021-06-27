@@ -1,18 +1,17 @@
-package com.etti.vcash;
+package com.carla.vcash;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.etti.managers.SharedPrefsSingleton;
-import com.etti.vcash.Adapters.PagerAdapter;
+import com.carla.managers.SharedPrefsSingleton;
+import com.carla.vcash.Adapters.PagerAdapter;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;

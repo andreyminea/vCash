@@ -1,11 +1,10 @@
-package com.etti.vcash;
+package com.carla.vcash;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -17,10 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.etti.managers.FirebaseSingleton;
-import com.etti.managers.SharedPrefsSingleton;
-import com.etti.models.Card;
-import com.etti.models.User;
+import com.carla.managers.FirebaseSingleton;
+import com.carla.managers.SharedPrefsSingleton;
+import com.carla.models.Card;
+import com.carla.models.User;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,10 +28,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.UploadTask;
@@ -40,11 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class SignupActivity extends AppCompatActivity {

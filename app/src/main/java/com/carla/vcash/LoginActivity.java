@@ -1,4 +1,4 @@
-package com.etti.vcash;
+package com.carla.vcash;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.etti.customViews.CreditCardView;
-import com.etti.managers.SharedPrefsSingleton;
+import com.carla.customViews.CreditCardView;
+import com.carla.managers.SharedPrefsSingleton;
 import com.google.android.material.button.MaterialButton;
 
 public class LoginActivity extends AppCompatActivity {

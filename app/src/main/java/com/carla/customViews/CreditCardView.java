@@ -1,4 +1,4 @@
-package com.etti.customViews;
+package com.carla.customViews;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,14 +6,12 @@ import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.etti.vcash.R;
+import com.carla.vcash.R;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 
