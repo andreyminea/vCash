@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CreditCardView">
+        <attr name="card_number" format="string"/>
+        <attr name="card_holder" format="string"/>
+        <attr name="cvv" format="integer"/>
+        <attr name="expiration_date" format="string"/>
+        <attr name="show_name" format="boolean"/>
+        <attr name="show_exprDate" format="boolean"/>
+    </declare-styleable>
+</resources>

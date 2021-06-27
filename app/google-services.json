@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "346592257626",
+    "project_id": "vcash-51c62",
+    "storage_bucket": "vcash-51c62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346592257626:android:1999e8bae15b41f63a1a63",
+        "android_client_info": {
+          "package_name": "com.etti.vcash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346592257626-dtb1ivpp24uektl03ltuu7vjb44uf6nf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy4VRKGZS2N4kiWooilAydTcYyVAJliLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346592257626-dtb1ivpp24uektl03ltuu7vjb44uf6nf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
