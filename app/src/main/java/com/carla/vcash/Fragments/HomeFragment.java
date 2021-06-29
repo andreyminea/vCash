@@ -134,6 +134,19 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 String testAmount = amountInput.getText().toString();
                 Toast.makeText(getContext(), testAmount, Toast.LENGTH_SHORT).show();
+                String userID = SharedPrefsSingleton.getUserDocID(getContext());
+                String cardID = SharedPrefsSingleton.getUserCardDocID(getContext());
+                float amount = Float.parseFloat(amountInput.getText().toString());
+                float currentBalance = Float.parseFloat(balance.getText().toString());
+                float newBalance = amount + currentBalance;
+                FirebaseSingleton
+                        .getUserCardDocumentReference(userID, cardID)
+                        .update("balance", newBalance);
+                amountInput.getText().clear();
+                addMoneyWidget.setVisibility(View.INVISIBLE);
+                virtualCard.setVisibility(View.VISIBLE);
+                showAddMoneyWidgetBtn.setIconResource(R.drawable.ic_round_add_24);
+                isAddMoneyWidgetOpen = false;
             }
         });
 

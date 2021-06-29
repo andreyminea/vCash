@@ -34,7 +34,7 @@
                     android:id="@+id/profileImage"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/silver"/>
+                    android:src="@drawable/ic_baseline_account_circle_24"/>
 
                     <TextView
                         android:id="@+id/userName"
