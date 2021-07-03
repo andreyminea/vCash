@@ -268,6 +268,7 @@ public class SignupActivity extends AppCompatActivity {
                             Log.d(TAG, "is equal, user found, throw user to login screen");
                             User existingUser = document.toObject(User.class);
                             Log.d(TAG, existingUser.toString());
+                            SharedPrefsSingleton.saveUserID(document.getId(), getApplicationContext());
                             SharedPrefsSingleton.saveUserData(existingUser, getApplicationContext());
                             FirebaseSingleton.getUserCardCollectionReference(document.getId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override

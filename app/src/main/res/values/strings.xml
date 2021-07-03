@@ -41,4 +41,5 @@
     <string name="add_money">Add money</string>
     <string name="amount_hint">Amount</string>
     <string name="add">add</string>
+    <string name="send">send</string>
 </resources>

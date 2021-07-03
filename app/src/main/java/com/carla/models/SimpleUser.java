@@ -9,6 +9,7 @@ public class SimpleUser
     private String firstname;
     private String lastname;
     private String imageLink;
+    private String userID;
 
     public SimpleUser() {
     }
@@ -59,5 +60,13 @@ public class SimpleUser
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

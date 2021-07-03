@@ -3,16 +3,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.TransferFragment">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/atm_withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="10dp"
+            android:elevation="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="15dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/temp_img_withdraw"
+                android:src="@drawable/ic_round_local_atm_24"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/temp_label_withdraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/temp_img_withdraw"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:textSize="20sp"
+                android:text="WITHDRAW"/>
+
+            <ImageView
+                android:id="@+id/selectCheck"
+                android:src="@drawable/ic_baseline_euro_24"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:visibility="invisible"/>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userList"
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
+            android:layout_height="wrap_content"
+            android:layout_above="@id/temp_send_card"
+            android:layout_below="@id/atm_withdraw"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/temp_send_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginHorizontal="5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sendInput"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:textSize="24sp"
+                    android:hint="@string/amount_hint"
+                    android:background="@null"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sendMoneyBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="18sp"
+                    app:icon="@drawable/ic_round_attach_money_24"
+                    android:text="@string/send"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
     </RelativeLayout>
-
-
 </FrameLayout>
