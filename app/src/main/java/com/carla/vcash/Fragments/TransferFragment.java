@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -58,8 +59,7 @@ public class TransferFragment extends Fragment implements ItemClickListener {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static TransferFragment newInstance(String param1, String param2) {
+    public static TransferFragment newInstance() {
         TransferFragment fragment = new TransferFragment();
         return fragment;
     }
@@ -140,7 +140,6 @@ public class TransferFragment extends Fragment implements ItemClickListener {
                         }
                         if(lastSelectedPosition > -1)
                         {
-                            Toast.makeText(getContext(), "Sending money to somebody", Toast.LENGTH_SHORT).show();
                             personSend(money, lastSelectedPosition);
                         }
                     }
@@ -203,9 +202,23 @@ public class TransferFragment extends Fragment implements ItemClickListener {
                             FirebaseSingleton
                                     .getUserCardDocumentReference(currentUser.getUserID(), currentUserCardID)
                                     .update("balance", currentUserBalance - money);
+                            Record currentRecord = new Record();
+                            currentRecord.setRecordDate(Timestamp.now());
+                            currentRecord.setOperationType(Record.OPERATION_TYPE.SEND);
+                            currentRecord.setReceiver(otherUser);
+                            currentRecord.setSender(currentUser);
+                            currentRecord.setAmount(money);
+                            FirebaseSingleton.getUserHistoryReference(currentUser.getUserID()).add(currentRecord);
                             FirebaseSingleton
                                     .getUserCardDocumentReference(otherUser.getUserID(), otherUserCardID)
                                     .update("balance", otherUserBalance + money);
+                            Record otherRecord = new Record();
+                            otherRecord.setRecordDate(Timestamp.now());
+                            otherRecord.setOperationType(Record.OPERATION_TYPE.RECEIVE);
+                            otherRecord.setReceiver(otherUser);
+                            otherRecord.setSender(currentUser);
+                            otherRecord.setAmount(money);
+                            FirebaseSingleton.getUserHistoryReference(otherUser.getUserID()).add(otherRecord);
                         }
                         else
                         {
@@ -234,6 +247,7 @@ public class TransferFragment extends Fragment implements ItemClickListener {
                             Record transactionRecord = new Record();
                             transactionRecord.setOperationType(Record.OPERATION_TYPE.WITHDRAW);
                             transactionRecord.setAmount(money);
+                            transactionRecord.setRecordDate(Timestamp.now());
                             FirebaseSingleton.getUserHistoryReference(userID).add(transactionRecord);
                         }
                     });
@@ -293,7 +307,8 @@ public class TransferFragment extends Fragment implements ItemClickListener {
         {
             UserAdapter.ViewHolder holder = (UserAdapter.ViewHolder) recyclerView
                                             .findViewHolderForAdapterPosition(lastSelectedPosition);
-            holder.selectIcon.setVisibility(View.INVISIBLE);
+            if(holder != null)
+                holder.selectIcon.setVisibility(View.INVISIBLE);
         }
         if(isATMSelected)
         {

@@ -1,5 +1,7 @@
 package com.carla.models;
 
+import com.google.firebase.Timestamp;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ public class Record
     private OPERATION_TYPE opType;
     private SimpleUser receiver;
     private float amount;
+    private Timestamp recordDate;
     final static private Map<Integer, OPERATION_TYPE> intTranslationMap = new HashMap<Integer, OPERATION_TYPE>()
     {{
         put(0, OPERATION_TYPE.TOP_UP);
@@ -58,10 +61,23 @@ public class Record
         this.opType = intTranslationMap.get(operationTypeInt);
     }
 
+    public OPERATION_TYPE getTypeOfOperation()
+    {
+        return opType;
+    }
+
     public void setOperationType(OPERATION_TYPE type)
     {
         opType = type;
         operationTypeInt = enumTranslationMap.get(type);
+    }
+
+    public Timestamp getRecordDate() {
+        return recordDate;
+    }
+
+    public void setRecordDate(Timestamp recordDate) {
+        this.recordDate = recordDate;
     }
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,11 @@ import com.carla.models.User;
 import com.carla.vcash.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class HomeFragment extends Fragment {
 
@@ -43,6 +46,7 @@ public class HomeFragment extends Fragment {
     private TextInputEditText amountInput;
     private CreditCardView virtualCard;
     private Boolean isAddMoneyWidgetOpen;
+    private Timestamp dateCreated;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -66,6 +70,8 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         updateBalance();
+        checkForRecords();
+        dateCreated = Timestamp.now();
     }
 
     @Override
@@ -151,6 +157,7 @@ public class HomeFragment extends Fragment {
                 Record transactionRecord = new Record();
                 transactionRecord.setOperationType(Record.OPERATION_TYPE.TOP_UP);
                 transactionRecord.setAmount(amount);
+                transactionRecord.setRecordDate(Timestamp.now());
                 FirebaseSingleton.getUserHistoryReference(userID).add(transactionRecord);
                 amountInput.getText().clear();
                 addMoneyWidget.setVisibility(View.INVISIBLE);
@@ -186,6 +193,39 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void checkForRecords()
+    {
+        String userID = SharedPrefsSingleton.getUserDocID(getContext());
+        FirebaseSingleton.getUserHistoryReference(userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable @org.jetbrains.annotations.Nullable QuerySnapshot value,
+                                @Nullable @org.jetbrains.annotations.Nullable FirebaseFirestoreException error) {
+
+                boolean displayedTransaction = false;
+                for (DocumentSnapshot doc : value)
+                {
+                    Record transaction = doc.toObject(Record.class);
+                    if(transaction.getRecordDate().compareTo(dateCreated) > 0)
+                    {
+                        if(transaction.getTypeOfOperation() == Record.OPERATION_TYPE.RECEIVE)
+                        {
+                            String senderName = transaction.getSender().getFirstname() + " " +
+                                                            transaction.getSender().getLastname();
+                            String amount = String.valueOf(transaction.getAmount());
+                            String showText = "Received " + amount + " from " + senderName;
+                            Toast.makeText(getContext(), showText, Toast.LENGTH_LONG).show();
+                            displayedTransaction = true;
+                        }
+                    }
+                }
+                if(displayedTransaction)
+                {
+                    dateCreated = Timestamp.now();
+                }
+            }
+        });
     }
 
     private void addVirtualCardDetails()
