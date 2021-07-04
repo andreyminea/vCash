@@ -278,6 +278,7 @@ public class SignupActivity extends AppCompatActivity {
                                         Log.d(TAG, document.getId());
                                         Card userCard = document.toObject(Card.class);
                                         SharedPrefsSingleton.saveUserCardData(userCard, getApplicationContext());
+                                        SharedPrefsSingleton.saveUserCardID(document.getId(), getApplicationContext());
                                         SharedPrefsSingleton.setHasAccount(getApplicationContext(), true);
                                         Log.d(TAG, userCard.toString());
                                         Toast.makeText(SignupActivity.this,

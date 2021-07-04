@@ -58,7 +58,14 @@ public class Record
         this.opType = intTranslationMap.get(operationTypeInt);
     }
 
-    enum OPERATION_TYPE
+    public void setOperationType(OPERATION_TYPE type)
+    {
+        opType = type;
+        operationTypeInt = enumTranslationMap.get(type);
+    }
+
+
+    public enum OPERATION_TYPE
     {
         TOP_UP,
         WITHDRAW,

@@ -11,12 +11,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.carla.managers.FirebaseSingleton;
 import com.carla.managers.SharedPrefsSingleton;
+import com.carla.models.Card;
+import com.carla.models.Record;
 import com.carla.models.SimpleUser;
 import com.carla.models.User;
 import com.carla.vcash.Adapters.ItemClickListener;
@@ -27,6 +30,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -129,7 +136,6 @@ public class TransferFragment extends Fragment implements ItemClickListener {
                     {
                         if(isATMSelected)
                         {
-                            Toast.makeText(getContext(), "ATM withdraw", Toast.LENGTH_SHORT).show();
                             atmWithdraw(money);
                         }
                         if(lastSelectedPosition > -1)
@@ -178,12 +184,66 @@ public class TransferFragment extends Fragment implements ItemClickListener {
         // Create History
         // Subtract money from account
         // Add money to selected account
+        SimpleUser currentUser = new SimpleUser(SharedPrefsSingleton.getUser(getContext()));
+        currentUser.setUserID(SharedPrefsSingleton.getUserDocID(getContext()));
+        SimpleUser otherUser = users.get(lastSelectedPosition);
+
+        FirebaseSingleton.getUserCardCollectionReference(currentUser.getUserID()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                String currentUserCardID = queryDocumentSnapshots.getDocuments().get(0).getId();
+                float currentUserBalance = queryDocumentSnapshots.getDocuments().get(0).toObject(Card.class).getBalance();
+                FirebaseSingleton.getUserCardCollectionReference(otherUser.getUserID()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        String otherUserCardID = queryDocumentSnapshots.getDocuments().get(0).getId();
+                        float otherUserBalance = queryDocumentSnapshots.getDocuments().get(0).toObject(Card.class).getBalance();
+                        if(currentUserBalance >= money)
+                        {
+                            FirebaseSingleton
+                                    .getUserCardDocumentReference(currentUser.getUserID(), currentUserCardID)
+                                    .update("balance", currentUserBalance - money);
+                            FirebaseSingleton
+                                    .getUserCardDocumentReference(otherUser.getUserID(), otherUserCardID)
+                                    .update("balance", otherUserBalance + money);
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(), "Insufficient founds", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void atmWithdraw(float money)
     {
-        // Create History
-        // Subtract money from account
+        String cardID = SharedPrefsSingleton.getUserCardDocID(getContext());
+        String userID = SharedPrefsSingleton.getUserDocID(getContext());
+
+        FirebaseSingleton.getUserCardDocumentReference(userID, cardID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot value) {
+                Card tempCard = value.toObject(Card.class);
+                if (tempCard.getBalance() >= money) {
+                    FirebaseSingleton.getUserCardDocumentReference(userID, cardID).update("balance", tempCard.getBalance() - money).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(getContext(), "Operation done!", Toast.LENGTH_SHORT).show();
+                            Record transactionRecord = new Record();
+                            transactionRecord.setOperationType(Record.OPERATION_TYPE.WITHDRAW);
+                            transactionRecord.setAmount(money);
+                            FirebaseSingleton.getUserHistoryReference(userID).add(transactionRecord);
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Insufficient founds", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private boolean isSomethingChecked()

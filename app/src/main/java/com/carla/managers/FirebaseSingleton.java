@@ -68,6 +68,13 @@ public class FirebaseSingleton
         return ref;
     }
 
+    public static CollectionReference getUserHistoryReference(String userID)
+    {
+        CollectionReference ref = getUsersCollection().document(userID).collection("History");
+        return ref;
+    }
+
+
     public static DocumentReference getUserCardDocumentReference(String userID, String cardID)
     {
         DocumentReference ref = getUserCardCollectionReference(userID).document(cardID);

@@ -39,14 +39,13 @@ public class SimpleUser
         return imageLink;
     }
 
-    @NonNull
-    @NotNull
     @Override
     public String toString() {
-        return "User{" +
+        return "SimpleUser{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", imageLink='" + imageLink + '\'' +
+                ", userID='" + userID + '\'' +
                 '}';
     }
 

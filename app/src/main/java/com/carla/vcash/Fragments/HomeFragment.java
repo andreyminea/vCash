@@ -20,6 +20,7 @@ import com.carla.customViews.CreditCardView;
 import com.carla.managers.FirebaseSingleton;
 import com.carla.managers.SharedPrefsSingleton;
 import com.carla.models.Card;
+import com.carla.models.Record;
 import com.carla.models.User;
 import com.carla.vcash.R;
 import com.google.android.material.button.MaterialButton;
@@ -62,6 +63,12 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        updateBalance();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -81,7 +88,6 @@ public class HomeFragment extends Fragment {
                 .into(profileImage);
         String userFullName = user.getFirstname() + " " + user.getLastname();
         addVirtualCardDetails();
-        listenForBalanceChanges();
         userName.setText(userFullName);
 
         showAddMoneyWidgetBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +148,10 @@ public class HomeFragment extends Fragment {
                 FirebaseSingleton
                         .getUserCardDocumentReference(userID, cardID)
                         .update("balance", newBalance);
+                Record transactionRecord = new Record();
+                transactionRecord.setOperationType(Record.OPERATION_TYPE.TOP_UP);
+                transactionRecord.setAmount(amount);
+                FirebaseSingleton.getUserHistoryReference(userID).add(transactionRecord);
                 amountInput.getText().clear();
                 addMoneyWidget.setVisibility(View.INVISIBLE);
                 virtualCard.setVisibility(View.VISIBLE);
@@ -152,34 +162,6 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        stopListening();
-    }
-
-    private void listenForBalanceChanges()
-    {
-        mBalanceChecker.run();
-    }
-
-    private void stopListening()
-    {
-        mHandler.removeCallbacks(mBalanceChecker);
-    }
-
-    Runnable mBalanceChecker = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                updateBalance();
-            }finally {
-                mHandler.postDelayed(mBalanceChecker, 1000);
-            }
-        }
-    };
-
 
     private void updateBalance()
     {
